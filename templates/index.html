@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Translate-One Language to Another</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='assets/favicon.ico') }}" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars ms-1"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="#contact">Sentence</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#imagetranslate">Image Text</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#audiotranslate">Audio Speech</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#documenttranslate">Document</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Masthead-->
+        <header class="masthead">
+            <div class="container">
+                <div class="masthead-subheading">Welcome To Our Language Translator!</div>
+                <div class="masthead-heading text-uppercase">Break the Language Barrier</div>
+                <a class="btn btn-primary btn-xl text-uppercase" href="#contact">Translate</a>
+				<br><br><br><br><br>
+				{% if conversion %}
+				<h4 class="section-heading">{{ conversion }} <br><a href="{{ url_for('static', filename='language/translated.txt') }}" download>Download</a></h4>
+				
+				{% endif %}
+            </div>
+        </header><br><br><br>
+        <!-- Contact-->
+        <section class="page-section" id="contact">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Sentence Translator</h2>
+                    <h4 class="section-heading">We use Amazon Translate to translate from one language to another!
+					<a href="https://docs.aws.amazon.com/translate/latest/dg/what-is.html">(Language Codes)</a></h4>
+                </div>
+				<center>
+                <form id="contactForm" action="/languagetranslate#page-top" method="post">
+                        <div class="col-md-6">
+                            <div class="form-group form-group-textarea mb-md-0">
+                                <!-- Message input-->
+                                <textarea class="form-control" id="message" placeholder="Your Message *" data-sb-validations="required" name="texttotranslate"></textarea>
+                                <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div><br>
+								<h5 class="section-heading">Source Language Code</h4><input type="text" name="sourcelanguage">
+								<h5 class="section-heading">Translate Language Code</h4><input type="text" name="targetlanguage">
+						</div>
+                        </div>
+                    </div><br><br>
+                    <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase enabled" id="submitButton" type="submit">Translate</button></div>
+                </form>
+				</center>
+            </div>
+        </section>
+		
+		
+		<section class="page-section" id="imagetranslate">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase" style="color:black;">Image Text Translator</h2>
+                    <h4 class="section-heading" style="color:black;">We use Amazon Rekognition to extract Text from Image!
+                </div>
+				<center>
+                <form id="contactForm" action="/imagetexttranslate#page-top" method="post" enctype="multipart/form-data">
+					<div class="col-6">
+					  <input class="form-control" type="file" id="formFile" name="image">
+					</div>
+                    </div><br><br>
+                    <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase enabled" id="submitButton" type="submit">Translate</button></div>
+                </form>
+				</center>
+            </div>
+        </section>
+		
+		
+		<section class="page-section" id="audiotranslate">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Audio Speech Translator</h2>
+                    <h4 class="section-heading">We use Amazon Transcribe to get subtitles from Audio!
+                </div>
+				<center>
+                <form id="contactForm" action="/audiospeechtranslate#page-top" method="post" enctype="multipart/form-data">
+					<div class="col-6">
+					  <input class="form-control" type="file" id="formFile" name="audio">
+					</div>
+                    </div><br><br>
+                    <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase enabled" id="submitButton" type="submit">Translate</button></div>
+                </form>
+				</center>
+            </div>
+        </section>
+		
+		
+		<section class="page-section" id="documenttranslate">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase" style="color:black;">Document Translator</h2>
+                    <h4 class="section-heading" style="color:black;">We use Amazon Textract to extract text from Document!
+                </div>
+				<center>
+                <form id="contactForm" action="/documenttranslate#page-top" method="post" enctype="multipart/form-data">
+					<div class="col-6">
+					  <input class="form-control" type="file" id="formFile" name="pdf">
+					</div>
+                    </div><br><br>
+                    <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase enabled" id="submitButton" type="submit">Translate</button></div>
+                </form>
+				</center>
+            </div>
+        </section>
+       
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    </body>
+</html>
